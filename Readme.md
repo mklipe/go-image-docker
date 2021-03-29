@@ -1,2 +1,2 @@
 # Full Cycle - Imagem Docker Go otimizada 
-Link: [Link da imagem](https://www.dockerhub.com/mklipe/go-fullcycle)
+Link da imagem: https://hub.docker.com/repository/docker/mklipe/go-full-cycle
