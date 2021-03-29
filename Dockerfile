@@ -1,22 +1,14 @@
-# Dockerfile References: https://docs.docker.com/engine/reference/builder/
 
-# Start from the latest golang base image
-FROM golang:latest
-
-# Add Maintainer Info
-LABEL maintainer="Rajeev Singh <rajeevhub@gmail.com>"
-
-# Set the Current Working Directory inside the container
+FROM golang:1.16.2-alpine AS builder
+RUN apk add --update --no-cache \
+  build-base \ 
+  upx
 WORKDIR /app
-
-# Copy everything from the current directory to the Working Directory inside the container
 COPY . .
+RUN go build -o main . && \
+  upx main
 
-# Build the Go app
-RUN go build -o main .
-
-# Expose port 8080 to the outside world
-EXPOSE 8080
-
-# Command to run the executable
+FROM scratch
+WORKDIR /root/
+COPY --from=builder /app .
 CMD ["./main"]
